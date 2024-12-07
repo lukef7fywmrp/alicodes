@@ -35,3 +35,15 @@ export function formatDate(date: string) {
     return `${fullDate} (${yearsAgo}y ago)`;
   }
 }
+
+export function portableTextToPlainText(blocks: any[] = []): string {
+  return (
+    blocks
+      ?.map((block) =>
+        block._type === "block"
+          ? block.children?.map((child: any) => child.text).join("")
+          : ""
+      )
+      .join(" ") ?? ""
+  );
+}
