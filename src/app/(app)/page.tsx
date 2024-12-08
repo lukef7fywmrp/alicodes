@@ -39,7 +39,7 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`${author.name?.split(" ")[0] ?? ""} here`}
+                text={`hi, i'm ${author.name?.split(" ")[0] ?? ""}`}
                 emoji={{
                   value: "👋🏼",
                   className: "text-[55px] ml-2.5 pb-2 -mt-1",
@@ -156,12 +156,12 @@ export default async function Page() {
                 <ProjectCard
                   key={project._id}
                   title={project.title ?? ""}
-                  description={portableTextToPlainText(project.description!)}
-                  dates={`${project.startDate} - ${project.endDate}`}
+                  description={project.description ?? []}
                   tags={project.technologies ?? []}
                   image={project.image?.asset?.url ?? ""}
                   video={project.video ?? ""}
-                  links={project.links}
+                  links={project.links ?? []}
+                  href={project.links?.[0]?.url ?? ""}
                 />
               </BlurFade>
             ))}
@@ -186,8 +186,7 @@ export default async function Page() {
                 >
                   with a direct question on twitter
                 </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all
-                soliciting.
+                and I&apos;ll respond whenever I can.
               </p>
             </div>
           </BlurFade>

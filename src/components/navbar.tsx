@@ -17,9 +17,13 @@ import {
   TwitterIcon,
   GithubIcon,
   LinkedinIcon,
+  YoutubeIcon,
 } from "lucide-react";
+import { getAuthorData } from "@/sanity/lib/queries";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const author = await getAuthorData();
+
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14">
       <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background"></div>
@@ -51,9 +55,26 @@ export default function Navbar() {
         ))}
         <Separator orientation="vertical" className="h-full" />
         {[
-          { name: "Twitter", icon: TwitterIcon, url: "https://twitter.com" },
-          { name: "GitHub", icon: GithubIcon, url: "https://github.com" },
-          { name: "LinkedIn", icon: LinkedinIcon, url: "https://linkedin.com" },
+          {
+            name: "Twitter",
+            icon: TwitterIcon,
+            url: author?.social?.twitter || "#",
+          },
+          {
+            name: "GitHub",
+            icon: GithubIcon,
+            url: author?.social?.github || "#",
+          },
+          {
+            name: "LinkedIn",
+            icon: LinkedinIcon,
+            url: author?.social?.linkedin || "#",
+          },
+          {
+            name: "YouTube",
+            icon: YoutubeIcon,
+            url: author?.social?.youtube || "#",
+          },
         ].map((social) => (
           <DockIcon key={social.name}>
             <Tooltip>

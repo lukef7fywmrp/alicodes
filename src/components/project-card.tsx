@@ -9,13 +9,14 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
+import { PortableText } from "@portabletext/react";
+import { TypedObject } from "sanity";
+import { Github, Globe } from "lucide-react";
 
 interface Props {
   title: string;
   href?: string;
-  description: string;
-  dates: string;
+  description: TypedObject[];
   tags: readonly string[];
   link?: string;
   image?: string;
@@ -34,7 +35,6 @@ export function ProjectCard({
   title,
   href,
   description,
-  dates,
   tags,
   link,
   image,
@@ -52,36 +52,23 @@ export function ProjectCard({
         href={href || "#"}
         className={cn("block cursor-pointer", className)}
       >
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-          />
-        )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
+        <Image
+          src={image || ""}
+          alt={title}
+          width={500}
+          height={300}
+          className="h-40 w-full overflow-hidden object-cover object-top"
+        />
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">
           <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          <time className="font-sans text-xs">{dates}</time>
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
-            {description}
-          </Markdown>
+          <div className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+            <PortableText value={description} />
+          </div>
         </div>
       </CardHeader>
       <CardContent className="mt-auto flex flex-col px-2">
@@ -105,8 +92,12 @@ export function ProjectCard({
             {links?.map((link, idx) => (
               <Link href={link?.url ?? ""} key={idx} target="_blank">
                 <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
+                  {link.type === "code" ? (
+                    <Github className="size-3" />
+                  ) : (
+                    <Globe className="size-3" />
+                  )}
                   {link.title}
-                  {link.type}
                 </Badge>
               </Link>
             ))}
