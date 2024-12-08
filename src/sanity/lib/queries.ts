@@ -4,6 +4,7 @@ import { sanityFetch } from "./live";
 export const getAuthorData = async () => {
   const AUTHOR_QUERY = defineQuery(`
     *[_type == "author"][0] {
+      _id,
       name,
       initials,
       avatar {
@@ -35,6 +36,7 @@ export const getAuthorData = async () => {
 export const getWorkExperience = async () => {
   const WORK_QUERY = defineQuery(`
     *[_type == "workExperience"] | order(startDate desc) {
+      _id,
       company,
       title,
       logo {
@@ -60,6 +62,7 @@ export const getWorkExperience = async () => {
 export const getEducation = async () => {
   const EDUCATION_QUERY = defineQuery(`
     *[_type == "education"] | order(startDate desc) {
+      _id,
       school,
       degree,
       logo {
@@ -83,6 +86,7 @@ export const getEducation = async () => {
 export const getProjects = async () => {
   const PROJECTS_QUERY = defineQuery(`
     *[_type == "project"] | order(startDate desc) {
+      _id,
       title,
       description,
       startDate,

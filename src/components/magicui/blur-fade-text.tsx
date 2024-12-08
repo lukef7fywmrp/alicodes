@@ -16,6 +16,10 @@ interface BlurFadeTextProps {
   delay?: number;
   yOffset?: number;
   animateByCharacter?: boolean;
+  emoji?: {
+    value: string;
+    className?: string;
+  };
 }
 const BlurFadeText = ({
   text,
@@ -25,10 +29,16 @@ const BlurFadeText = ({
   delay = 0,
   yOffset = 8,
   animateByCharacter = false,
+  emoji,
 }: BlurFadeTextProps) => {
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0, filter: "blur(8px)" },
     visible: { y: -yOffset, opacity: 1, filter: "blur(0px)" },
+  };
+
+  const emojiVariants: Variants = {
+    hidden: { y: -yOffset, opacity: 0, filter: "blur(8px)" },
+    visible: { y: 0, opacity: 1, filter: "blur(0px)" },
   };
   const combinedVariants = variant || defaultVariants;
   const characters = useMemo(() => Array.from(text), [text]);
@@ -61,9 +71,10 @@ const BlurFadeText = ({
   }
 
   return (
-    <div className="flex">
+    <div className="flex items-center group">
       <AnimatePresence>
         <motion.span
+          key="text"
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -77,6 +88,26 @@ const BlurFadeText = ({
         >
           {text}
         </motion.span>
+        {emoji && (
+          <motion.span
+            key="emoji"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={emojiVariants}
+            transition={{
+              yoyo: Infinity,
+              delay,
+              ease: "easeOut",
+            }}
+            className={cn(
+              "inline-block group-hover:animate-wave",
+              emoji.className
+            )}
+          >
+            {emoji.value}
+          </motion.span>
+        )}
       </AnimatePresence>
     </div>
   );

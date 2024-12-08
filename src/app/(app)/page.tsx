@@ -16,6 +16,9 @@ import Link from "next/link";
 
 const BLUR_FADE_DELAY = 0.04;
 
+export const dynamic = "force-static";
+export const revalidate = 604800; // 1 week
+
 export default async function Page() {
   const [author, work, education, projects] = await Promise.all([
     getAuthorData(),
@@ -36,7 +39,11 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${author.name?.split(" ")[0] ?? ""} 👋`}
+                text={`${author.name?.split(" ")[0] ?? ""} here`}
+                emoji={{
+                  value: "👋🏼",
+                  className: "text-[55px] ml-2.5 pb-2 -mt-1",
+                }}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -72,12 +79,9 @@ export default async function Page() {
             <h2 className="text-xl font-bold">Work Experience</h2>
           </BlurFade>
           {work.map((item, id) => (
-            <BlurFade
-              key={item.company}
-              delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-            >
+            <BlurFade key={item._id} delay={BLUR_FADE_DELAY * 6 + id * 0.05}>
               <ResumeCard
-                key={item.company}
+                key={item._id}
                 logoUrl={item.logo?.asset?.url ?? ""}
                 altText={item.company ?? ""}
                 title={item.company ?? ""}
@@ -96,9 +100,9 @@ export default async function Page() {
             <h2 className="text-xl font-bold">Education</h2>
           </BlurFade>
           {education.map((item, id) => (
-            <BlurFade key={item.school} delay={BLUR_FADE_DELAY * 8 + id * 0.05}>
+            <BlurFade key={item._id} delay={BLUR_FADE_DELAY * 8 + id * 0.05}>
               <ResumeCard
-                key={item.school}
+                key={item._id}
                 href={item.url ?? ""}
                 logoUrl={item.logo?.asset?.url ?? ""}
                 altText={item.school ?? ""}
@@ -146,11 +150,11 @@ export default async function Page() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
             {projects.map((project, id) => (
               <BlurFade
-                key={project.title}
+                key={project._id}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
               >
                 <ProjectCard
-                  key={project.title}
+                  key={project._id}
                   title={project.title ?? ""}
                   description={portableTextToPlainText(project.description!)}
                   dates={`${project.startDate} - ${project.endDate}`}

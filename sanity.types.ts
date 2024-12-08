@@ -395,8 +395,9 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: AUTHOR_QUERY
-// Query: *[_type == "author"][0] {      name,      initials,      avatar {        asset-> {          url        }      },      description,      summary,      location,      skills,      social {        github,        linkedin,        twitter,        youtube,        email      }    }
+// Query: *[_type == "author"][0] {      _id,      name,      initials,      avatar {        asset-> {          url        }      },      description,      summary,      location,      skills,      social {        github,        linkedin,        twitter,        youtube,        email      }    }
 export type AUTHOR_QUERYResult = {
+  _id: string;
   name: string | null;
   initials: string | null;
   avatar: {
@@ -475,8 +476,9 @@ export type AUTHOR_QUERYResult = {
   } | null;
 } | null;
 // Variable: WORK_QUERY
-// Query: *[_type == "workExperience"] | order(startDate desc) {      company,      title,      logo {        asset-> {          url        }      },      location,      startDate,      endDate,      description,      url    }
+// Query: *[_type == "workExperience"] | order(startDate desc) {      _id,      company,      title,      logo {        asset-> {          url        }      },      location,      startDate,      endDate,      description,      url    }
 export type WORK_QUERYResult = Array<{
+  _id: string;
   company: string | null;
   title: string | null;
   logo: {
@@ -520,8 +522,9 @@ export type WORK_QUERYResult = Array<{
   url: string | null;
 }>;
 // Variable: EDUCATION_QUERY
-// Query: *[_type == "education"] | order(startDate desc) {      school,      degree,      logo {        asset-> {          url        }      },      startDate,      endDate,      url    }
+// Query: *[_type == "education"] | order(startDate desc) {      _id,      school,      degree,      logo {        asset-> {          url        }      },      startDate,      endDate,      url    }
 export type EDUCATION_QUERYResult = Array<{
+  _id: string;
   school: string | null;
   degree: string | null;
   logo: {
@@ -534,8 +537,9 @@ export type EDUCATION_QUERYResult = Array<{
   url: string | null;
 }>;
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project"] | order(startDate desc) {      title,      description,      startDate,      endDate,      technologies,      image {        asset-> {          url        }      },      video,      links[] {        title,        url,        type      }    }
+// Query: *[_type == "project"] | order(startDate desc) {      _id,      title,      description,      startDate,      endDate,      technologies,      image {        asset-> {          url        }      },      video,      links[] {        title,        url,        type      }    }
 export type PROJECTS_QUERYResult = Array<{
+  _id: string;
   title: string | null;
   description: Array<{
     children?: Array<{
@@ -587,9 +591,9 @@ export type PROJECTS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n    *[_type == \"author\"][0] {\n      name,\n      initials,\n      avatar {\n        asset-> {\n          url\n        }\n      },\n      description,\n      summary,\n      location,\n      skills,\n      social {\n        github,\n        linkedin,\n        twitter,\n        youtube,\n        email\n      }\n    }\n  ": AUTHOR_QUERYResult;
-    "\n    *[_type == \"workExperience\"] | order(startDate desc) {\n      company,\n      title,\n      logo {\n        asset-> {\n          url\n        }\n      },\n      location,\n      startDate,\n      endDate,\n      description,\n      url\n    }\n  ": WORK_QUERYResult;
-    "\n    *[_type == \"education\"] | order(startDate desc) {\n      school,\n      degree,\n      logo {\n        asset-> {\n          url\n        }\n      },\n      startDate,\n      endDate,\n      url\n    }\n  ": EDUCATION_QUERYResult;
-    "\n    *[_type == \"project\"] | order(startDate desc) {\n      title,\n      description,\n      startDate,\n      endDate,\n      technologies,\n      image {\n        asset-> {\n          url\n        }\n      },\n      video,\n      links[] {\n        title,\n        url,\n        type\n      }\n    }\n  ": PROJECTS_QUERYResult;
+    "\n    *[_type == \"author\"][0] {\n      _id,\n      name,\n      initials,\n      avatar {\n        asset-> {\n          url\n        }\n      },\n      description,\n      summary,\n      location,\n      skills,\n      social {\n        github,\n        linkedin,\n        twitter,\n        youtube,\n        email\n      }\n    }\n  ": AUTHOR_QUERYResult;
+    "\n    *[_type == \"workExperience\"] | order(startDate desc) {\n      _id,\n      company,\n      title,\n      logo {\n        asset-> {\n          url\n        }\n      },\n      location,\n      startDate,\n      endDate,\n      description,\n      url\n    }\n  ": WORK_QUERYResult;
+    "\n    *[_type == \"education\"] | order(startDate desc) {\n      _id,\n      school,\n      degree,\n      logo {\n        asset-> {\n          url\n        }\n      },\n      startDate,\n      endDate,\n      url\n    }\n  ": EDUCATION_QUERYResult;
+    "\n    *[_type == \"project\"] | order(startDate desc) {\n      _id,\n      title,\n      description,\n      startDate,\n      endDate,\n      technologies,\n      image {\n        asset-> {\n          url\n        }\n      },\n      video,\n      links[] {\n        title,\n        url,\n        type\n      }\n    }\n  ": PROJECTS_QUERYResult;
   }
 }
