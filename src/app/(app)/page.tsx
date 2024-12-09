@@ -39,7 +39,7 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`hi, i'm ${author.name?.split(" ")[0] ?? ""}`}
+                text={`Hi, I'm ${author.name?.split(" ")[0] ?? ""}`}
                 emoji={{
                   value: "👋🏼",
                   className: "text-[55px] ml-2.5 pb-2 -mt-1",
