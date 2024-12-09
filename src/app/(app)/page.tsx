@@ -192,6 +192,19 @@ export default async function Page() {
           </BlurFade>
         </div>
       </section>
+      <footer className="pb-12 sm:pb-6 text-center text-xs text-muted-foreground">
+        <p>
+          Built with Next.js and Sanity.{" "}
+          <Link
+            href="https://github.com/lukef7fywmrp/next-sanity-portfolio"
+            className="text-blue-500 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View source on GitHub
+          </Link>
+        </p>
+      </footer>
     </main>
   );
 }

@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn, formatPeriod } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -81,7 +81,7 @@ export const ResumeCard = ({
                 />
               </h3>
               <div className="text-xs sm:text-sm tabular-nums text-muted-foreground text-right">
-                {period}
+                {formatPeriod(period)}
               </div>
             </div>
             {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
